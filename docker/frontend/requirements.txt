@@ -1,0 +1,4 @@
+transformers==4.45.1
+gradio_modal==0.0.4
+gradio_leaderboard==0.0.13
+matplotlib==3.10.0

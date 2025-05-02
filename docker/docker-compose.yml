@@ -1,0 +1,88 @@
+services:
+  leap-backend:
+    container_name: leap-backend
+    build: 
+      context: ../../leap
+      dockerfile: docker/backend/Dockerfile.backend
+    ports:
+    - 11188:11188
+    volumes:
+      - /mnt/seaweedfs/llm_models/:/home/llm_models/ 
+      - /mnt/seaweedfs/llm_data/:/home/data/ 
+      - ../data/:/home/leap/data/
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: "all"
+            capabilities: [gpu]
+    restart: unless-stopped
+    #command: /bin/bash -c "source activate vllm && uvicorn evaluation.app:app --host 0.0.0.0 --port 11184 --reload"
+    command: python api/app_api.py
+
+
+  leap-frontend:
+    container_name: leap-frontend
+    build:
+      context: ../../leap
+      dockerfile: docker/frontend/Dockerfile.frontend
+    ports:
+    - 11191:11191
+    volumes:
+    - ../logs/:/home/leap/logs/
+    stdin_open: true   # -it 옵션 활성화
+    tty: true          # -it 옵션 활성화
+    restart: unless-stopped
+    command: python webui/app_gui.py
+  
+
+  leap-eval:
+    container_name: leap-eval
+    build: 
+      context: ../../leap
+      dockerfile: docker/eval/Dockerfile.eval
+    ports:
+    - 11189:11189
+    volumes:
+      - /mnt/seaweedfs/llm_models/:/home/llm_models/ 
+      - /mnt/seaweedfs/llm_data/:/home/data/
+      - ../logs/:/home/leap/logs/
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: "all"
+            capabilities: [gpu]
+    restart: unless-stopped
+    #command: /bin/bash -c "source activate vllm && uvicorn evaluation.app:app --host 0.0.0.0 --port 11184 --reload"
+    command: /bin/bash -c "source activate vllm && python evaluation/app_eval.py"
+
+  leap-tuning:
+    container_name: leap-tuning
+    build: 
+      context: ../../leap
+      dockerfile: docker/tuning/Dockerfile.tuning
+    ports:
+    - 11190:11190
+    volumes:
+      - /mnt/seaweedfs/llm_models/:/home/llm_models/ 
+      - /mnt/seaweedfs/llm_data/:/home/data/
+      - ../logs/:/home/leap/logs/
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: "all"
+            capabilities: [gpu]
+    restart: unless-stopped
+    #command: /bin/bash -c "source activate vllm && uvicorn evaluation.app:app --host 0.0.0.0 --port 11184 --reload"
+    command: /bin/bash -c "source activate vllm && python tuning/app_tuning.py"
