@@ -30,7 +30,6 @@ LEAP 시스템은 4개의 주요 서버로 구성되어 있으며, 각 서버의
 | Multiprocess  | 0.70.16  |
 | FastAPI       | 0.115.5  |
 
----
 
 ### 🧬 Tuning Server (모델 PEFT 서버)
 | Component     | Version  |
@@ -46,7 +45,6 @@ LEAP 시스템은 4개의 주요 서버로 구성되어 있으며, 각 서버의
 | Flash-Attn    | 2.6.3    |
 | Accelerate    | 1.0.1    |
 
----
 
 ### 🧠 Backend Server (작업 관리 서버)
 | Component     | Version  |
@@ -56,7 +54,6 @@ LEAP 시스템은 4개의 주요 서버로 구성되어 있으며, 각 서버의
 | FastAPI       | 0.115.5  |
 | GPUtil        | 1.4.0    |
 
----
 
 ### 💻 Frontend Server (웹 UI 서버)
 | Component           | Version  |
