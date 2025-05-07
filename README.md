@@ -1,4 +1,4 @@
-# leap
+# LEAP (Language model Evaluation And PEFT)
 LLM의 튜닝부터 평가, 결과 분석까지 전 과정을 통합적으로 제공하는 시스템
 
 ## Requirements
