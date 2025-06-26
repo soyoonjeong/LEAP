@@ -33,7 +33,7 @@ ENV BACKEND_PORT=11188
 ENV EVAL_PORT=11189
 ENV TUNING_PORT=11190
 ENV FRONTEND_PORT=11191
-ENV HF_TOKEN=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
+ENV HF_TOKEN=
 EXPOSE 11189
     
 #ENTRYPOINT ["/bin/bash", "-c", "source activate vllm && exec \"$@\"", "--"]
