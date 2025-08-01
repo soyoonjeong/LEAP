@@ -1,5 +1,6 @@
 import os
 import gradio as gr
+from pathlib import Path
 
 from css import css
 from components import (
@@ -19,16 +20,12 @@ from config import (
     get_tuning_models,
 )
 
-
 def build_demo():
     with gr.Blocks(title="SURROMIND", css=css) as demo:
-        gr.Markdown("# Surro LLM Eval & PEFT <br><br>")
-        gr.DownloadButton(
-            label="Download Manual PDF",
-            value="/home/leap/webui/LEAP_기능설명서.pdf",
-            visible=True,
-            elem_classes=["download-btn"],
-        )
+        gr.Markdown("# Surro LLM Eval & PEFT")
+        gr.HTML(f"""
+        <a href="https://raw.githubusercontent.com/surromind/leap/main/webui/LEAP_기능설명서.pdf" target="_blank" class="download-link">Manual PDF</a>
+        """)
         EVAL_DATASETS = get_eval_datasets()
         TUNING_DATASETS = get_tuning_datasets()
         EVAL_MODELS = get_eval_models()
@@ -97,4 +94,6 @@ if __name__ == "__main__":
         debug=True,
         server_port=int(os.getenv("FRONTEND_PORT", 11191)),
         allowed_paths=["/home/leap/webui/LEAP_기능설명서.pdf"],
+        auth=None,
+        ssl_verify=False
     )
