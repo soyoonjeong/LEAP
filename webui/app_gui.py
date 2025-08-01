@@ -25,7 +25,7 @@ def build_demo():
         gr.Markdown("# Surro LLM Eval & PEFT <br><br>")
         gr.DownloadButton(
             label="Download Manual PDF",
-            value="https://raw.githubusercontent.com/surromind/leap/main/webui/LEAP_기능설명서.pdf",
+            value="/home/leap/webui/LEAP_기능설명서.pdf",
             visible=True,
             elem_classes=["download-btn"],
         )
@@ -96,4 +96,5 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         debug=True,
         server_port=int(os.getenv("FRONTEND_PORT", 11191)),
+        allowed_paths=["/home/leap/webui/LEAP_기능설명서.pdf"],
     )
