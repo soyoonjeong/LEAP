@@ -23,6 +23,12 @@ from config import (
 def build_demo():
     with gr.Blocks(title="SURROMIND", css=css) as demo:
         gr.Markdown("# Surro LLM Eval & PEFT <br><br>")
+        gr.DownloadButton(
+            label="Download Manual PDF",
+            value="/home/leap/webui/LEAP_기능설명서.pdf",
+            visible=True,
+            elem_classes=["download-btn"],
+        )
         EVAL_DATASETS = get_eval_datasets()
         TUNING_DATASETS = get_tuning_datasets()
         EVAL_MODELS = get_eval_models()
@@ -89,5 +95,5 @@ if __name__ == "__main__":
         share=False,
         server_name="0.0.0.0",
         debug=True,
-        server_port=int(os.getenv("FRONTEND_PORT", 11184)),
+        server_port=int(os.getenv("FRONTEND_PORT", 11191)),
     )

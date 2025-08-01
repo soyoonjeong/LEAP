@@ -48,5 +48,10 @@ table th:first-child {
     max-width: 85% !important;
 }
 
-
+.download-btn {
+    max-width: 200px !important;
+    width: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
 """
