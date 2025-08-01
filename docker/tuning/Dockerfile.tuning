@@ -23,12 +23,15 @@ RUN wget \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
 RUN conda --version
 RUN conda env list
+RUN conda config --set channel_priority strict && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 RUN /bin/bash -c "conda init" 
 RUN /bin/bash -c "conda create -n vllm python=3.10 -y" 
 RUN /bin/bash -c "source activate vllm && pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121 && pip install -r requirements.txt" 
 
 
-ENV HOST=10.10.20.66
+ENV HOST=10.10.20.24
 ENV BACKEND_PORT=11188
 ENV EVAL_PORT=11189
 ENV TUNING_PORT=11190
